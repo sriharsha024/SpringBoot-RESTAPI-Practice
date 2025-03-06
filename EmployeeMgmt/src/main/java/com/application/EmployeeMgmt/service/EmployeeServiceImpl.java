@@ -1,10 +1,12 @@
 package com.application.EmployeeMgmt.service;
 
 import com.application.EmployeeMgmt.entity.Employee;
+import com.application.EmployeeMgmt.entity.EmployeeAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.application.EmployeeMgmt.repository.EmployeeRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +32,24 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee addEmployee(Employee employee) {
+        ArrayList<EmployeeAddress> addressArrayList = new ArrayList<>();
+
+        for (EmployeeAddress address : employee.getEmployeeAddressList()) {
+            EmployeeAddress newAddress = new EmployeeAddress(
+                    address.getAddressLine1(),
+                    address.getAddressLine2(),
+                    address.getCity(),
+                    address.getState(),
+                    address.getCountry(),
+                    address.getPostalCode(),
+                    employee
+            );
+
+            addressArrayList.add(newAddress);
+        }
+
+        employee.setEmployeeAddressList(addressArrayList);
+
         return employeeRepo.save(employee);
     }
 

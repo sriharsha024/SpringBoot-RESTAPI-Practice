@@ -2,7 +2,6 @@ package com.application.EmployeeMgmt.controller;
 
 import com.application.EmployeeMgmt.entity.Employee;
 import com.application.EmployeeMgmt.service.EmployeeServiceImpl;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +36,7 @@ public class EmployeeController {
     }
 
     @PostMapping(value = "/employees", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Employee> addEmployee(@Valid @RequestBody Employee employee) {
+    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
         try {
             Employee createdEmployee = employeeService.addEmployee(employee);
             return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
@@ -48,7 +47,7 @@ public class EmployeeController {
 
 
     @PutMapping("/employees/{employeeId}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable long employeeId, @Valid @RequestBody Employee employee) {
+    public ResponseEntity<Employee> updateEmployee(@PathVariable long employeeId, @RequestBody Employee employee) {
         Employee updatedEmployee = employeeService.updateEmployeeDetails(employeeId, employee);
         if (updatedEmployee != null) {
             return new ResponseEntity<>(updatedEmployee, HttpStatus.OK);

@@ -2,12 +2,12 @@ package com.application.EmployeeMgmt.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -18,13 +18,15 @@ public class Projects {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long projectId;
-    @NotNull
     private String projectTitle;
-    @NotNull
     private String projectDescription;
 
     @ManyToMany(mappedBy = "projects")
     @JsonIgnore
-    private List<Employee> employees;
+    private Set<Employee> employees = new HashSet<Employee>();
 
+    public Projects(String projectTitle, String projectDescription) {
+        this.projectTitle = projectTitle;
+        this.projectDescription = projectDescription;
+    }
 }
