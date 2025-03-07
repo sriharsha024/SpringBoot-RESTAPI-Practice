@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <script type="text/javascript" th:src="@{js/main.js}"></script>
+    <link rel="stylesheet"  type="text/css" th:href="@{css/main.css}">
+</head>
+<body>
+<p>This is home page.</p>
+<p>Welcome <span th:text="${name}"></span></p>
+<span th:text="${#strings.toUpperCase(name)}"></span>
+<div th:with="someVariable=${someValue},a=20, b=30">
+    <p th:text="'Value of a*b :'+ ${a}*${b}"></p>
+</div>
+<button id="click-button" onclick="main()">Click</button>
+<!-- INCLUDE
+<footer id="parent-footer" th:include="fragment/demoHTML::header">-->
+<!--    <h1>From Home</h1>-->
+<!--</footer>-->
+<footer id="parent-footer" th:insert="fragment/demoHTML::header">
+    <h1>From Home</h1>
+</footer>
+
+<!--<footer id="parent-footer" th:replace="fragment/demoHTML::header">-->
+<!--    <h1>From Home</h1> &lt;!&ndash; This will be replaced by fragment content &ndash;&gt;-->
+<!--</footer>-->
+
+</body>
+</html>
